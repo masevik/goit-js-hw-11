@@ -19,10 +19,10 @@ function onSearchImage(event) {
   fetchImages(searchQuery).then(onFetchSuccess).catch(onFetchError);
 }
 
-function onFetchSuccess({ hits }) {
-  console.log(hits);
-  const markup = createMarkup(hits);
-}
+// function onFetchSuccess({ hits }) {
+//   console.log(hits);
+//   const markup = createMarkup(hits);
+// }
 
 function onFetchError(error) {
   console.log('Fetch error:', error.message);
