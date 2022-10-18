@@ -25,14 +25,17 @@ function onSearchImage(event) {
     return;
   }
 
-  getImages(searchQuery, page).then(onFetchSuccess).catch(onFetchError);
+  try {
+    onFetchSuccess();
+  } catch (error) {
+    onFetchError(error);
+  }
 }
 
-function onFetchSuccess(response) {
+async function onFetchSuccess() {
   const {
     data: { hits, total, totalHits },
-  } = response;
-  const lightbox = new SimpleLightbox('.gallery a');
+  } = await getImages(searchQuery, page);
 
   if (total === 0) {
     Notify.failure(
@@ -42,6 +45,8 @@ function onFetchSuccess(response) {
   }
 
   addMarkup(hits);
+
+  const lightbox = new SimpleLightbox('.gallery a', { scrollZoom: false });
 
   if (totalHits > 40) {
     addLoadMoreBtn();
@@ -74,7 +79,11 @@ function onFetchError(error) {
 function onLoadMore() {
   page += 1;
 
-  getImages(searchQuery, page).then(onFetchSuccess).catch(onFetchError);
+  try {
+    onFetchSuccess();
+  } catch (error) {
+    onFetchError(error);
+  }
 }
 
 function addMarkup(value) {
