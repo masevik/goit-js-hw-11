@@ -30,9 +30,7 @@ const opts = {
   className: 'spinner', // The CSS class to assign to the spinner
   position: 'absolute', // Element positioning
 };
-
 const spinner = new Spinner(opts).spin(refs.spinner);
-
 let page;
 let searchQuery;
 
@@ -138,9 +136,11 @@ function resetPageCounter() {
 }
 
 function spinnerStart() {
+  spinner.spin(refs.spinner);
   refs.load.classList.remove('is-hidden');
 }
 
 function spinnerStop() {
   refs.load.classList.add('is-hidden');
+  spinner.stop(refs.spinner);
 }
